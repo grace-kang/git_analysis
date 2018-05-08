@@ -7,16 +7,68 @@ module GitAnalysis
         # initialize Analyzer and create an Authorization object
         def initialize(token, repo, owner)
             @request = Authorization.new(token, repo, owner)
+
+            if @request.get_repo_code == 404
+                abort('Aborting: Unable to find repository, please check URL.')
+            elsif @request.get_repo_code == 401
+                abort('Aborting: Invalid token, please check ENV["TOKEN"].')
+            end
+        end
+
+        def get_id
+            body = @request.get_repo
+            info = JSON.parse(body)
+            info['id']
+        end
+
+        def get_name
+            body = @request.get_repo
+            info = JSON.parse(body)
+            info['name']
+        end
+
+        def get_owner
+            body = @request.get_repo
+            info = JSON.parse(body)
+            info['login']
+        end
+
+        def get_language
+            body = @request.get_repo
+            info = JSON.parse(body)
+            info['language']
+        end
+
+        def get_open_pr_count
+            open_pulls = 0.to_s
+            body = @request.get_PR('open', 1)
+            headers = body.headers.inspect
+            info = JSON.parse(body)
+            if info.size > 0
+                open_pulls = headers.split('rel=\"next\"')[1].split('>; rel=\"last\"')[0].split("&page=")[1].split('&')[0]
+            end
+            open_pulls
+        end
+
+        def get_closed_pr_count
+            closed_pulls = 0.to_s
+            body = @request.get_PR('closed', 1)
+            headers = body.headers.inspect
+            info = JSON.parse(body)
+            if info.size > 0 
+                closed_pulls = headers.split('rel=\"next\"')[1].split('>; rel=\"last\"')[0].split("&page=")[1].split('&')[0]
+            end
+            closed_pulls
+        end
+
+        def get_total_pr_count
+            self.get_open_pr_count + self.get_closed_pr_count
         end
 
         # print repo ID, name, owner, language
         def print_basic_info
             body = @request.get_repo
             info = JSON.parse(body)
-            if @request.get_repo_code != 200
-                abort("error 2: invalid repository URL")
-            end
-
             puts ''
             puts '_______________________ Repository Information _______________________'
             puts ''
@@ -29,7 +81,7 @@ module GitAnalysis
         end
         
         # print the number of open, closed, and total pull requests
-        def print_num_PRs
+        def print_num_prs
             open_pulls = 0.to_s
             body = @request.get_PR('open', 1)
             headers = body.headers.inspect
@@ -56,7 +108,7 @@ module GitAnalysis
         end
         
         # for each PR, print the size
-        def print_PR_sizes
+        def print_pr_sizes
             puts '_________________________ Pull Request Sizes _________________________'
             puts ''
             page = 1

@@ -3,7 +3,7 @@ require 'octokit'
 
 # check argument length
 if ARGV.length != 1 
-    abort("incorrect number of arguments.")
+    abort("Aborting: Incorrect number of arguments.")
 end
 
 # initialize Octokit::Repository object from URL
@@ -11,7 +11,7 @@ url = ARGV[0]
 begin
     repo = Octokit::Repository.from_url(url)
 rescue Octokit::InvalidRepository => e
-    abort("error 1: invalid repository URL")
+    abort("Aborting: Invalid repository URL")
 end
 
 owner = repo.owner
