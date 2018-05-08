@@ -20,7 +20,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+1. Set your environment variable 'TOKEN' as your token by executing:
+
+    $ export TOKEN=<your token>
+
+2. Run the app by executing:
+
+    $ bundle execute ruby app.rb <repo url here>
+
+
 
 ## Development
 
