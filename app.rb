@@ -1,6 +1,5 @@
-#!/usr/bin/ruby
-require "octokit"
-require 'git_analysis/analyzer'
+require_relative 'lib/git_analysis/analyzer'
+require 'octokit'
 
 # check argument length
 if ARGV.length != 1 
@@ -18,6 +17,7 @@ end
 owner = repo.owner
 repo = repo.name.split('.')[0]
 
-print_basic_info(owner, repo)
-print_PRs(owner, repo)
-
+git_analyzer = GitAnalysis::Analyzer.new(ENV['TOKEN'], repo, owner)
+git_analyzer.print_basic_info
+git_analyzer.print_num_PRs
+git_analyzer.print_PR_sizes
