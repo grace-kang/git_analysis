@@ -2,6 +2,12 @@
 
 A RubyGem that analyzes a git repository and outputs basic information and PR information.
 
+Upon running app.rb with a repository URL, the following will be outputed:
+    1. Repository Information
+    2. Number of Pull Requests
+    3. Pull Request Sizes
+    
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,11 +28,11 @@ Or install it yourself as:
 
 1. Set your environment variable 'TOKEN' as your token by executing:
 
-    $ export TOKEN=<your token>
+    $ export TOKEN=[your token]
 
 2. Run the app by executing:
 
-    $ bundle execute ruby app.rb <repo url here>
+    $ bundle execute ruby app.rb [repo url here]
 
 
 
