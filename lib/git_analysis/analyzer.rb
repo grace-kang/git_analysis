@@ -13,7 +13,7 @@ module GitAnalysis
         def print_basic_info
             body = @request.get_repo
             info = JSON.parse(body)
-            if info.has_key?("id") == false
+            if @request.get_repo_code != 200
                 abort("error 2: invalid repository URL")
             end
 
@@ -30,18 +30,24 @@ module GitAnalysis
         
         # print the number of open, closed, and total pull requests
         def print_num_PRs
-            open_pulls = 0
-            body = @request.get_PRs('open', 1)
+            open_pulls = 0.to_s
+            body = @request.get_PR('open', 1)
             headers = body.headers.inspect
-            open_pulls = headers.split('rel=\"next\"')[1].split('>; rel=\"last\"')[0].split("&page=")[1].split('&')[0]
+            info = JSON.parse(body)
+            if info.size > 0
+                open_pulls = headers.split('rel=\"next\"')[1].split('>; rel=\"last\"')[0].split("&page=")[1].split('&')[0]
+            end
             puts '______________________ Number of Pull Requests ______________________'
             puts ''
             puts '    Open:   ' + open_pulls
         
-            closed_pulls = 0
-            body = @request.get_PRs('closed', 1)
+            closed_pulls = 0.to_s
+            body = @request.get_PR('closed', 1)
             headers = body.headers.inspect
-            closed_pulls = headers.split('rel=\"next\"')[1].split('>; rel=\"last\"')[0].split("&page=")[1].split('&')[0]
+            info = JSON.parse(body)
+            if info.size > 0 
+                closed_pulls = headers.split('rel=\"next\"')[1].split('>; rel=\"last\"')[0].split("&page=")[1].split('&')[0]
+            end
             puts '    Closed: ' + closed_pulls
             total_pulls = (open_pulls.to_i + closed_pulls.to_i).to_s
             puts '    Total:  ' + total_pulls
@@ -55,7 +61,7 @@ module GitAnalysis
             puts ''
             page = 1
             loop do
-                body = @request.get_PRs('open', page)
+                body = @request.get_PR('open', page)
                 info = JSON.parse(body)
                 break if info.size == 0
                 num = info[0]['number']
