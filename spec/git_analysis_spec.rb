@@ -1,6 +1,4 @@
-require 'git_analyzer'
-
-RSpec.describe GitAnalysis::Analyzer do
+RSpec.describe GitAnalysis do
   it "has a version number" do
     expect(GitAnalysis::VERSION).not_to be nil
   end
