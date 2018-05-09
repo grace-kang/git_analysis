@@ -33,7 +33,7 @@ module GitAnalysis
 
         # get status code of a repo's PR get request
         def get_PR_code(state, page)
-            message = 'https://api.github.com/repos/' + @owner + '/' + @repo + '/pulls?state=' + state + '&page=' + page.to_s + '&per_page=1'
+            message = 'https://api.github.com/repos/' + @owner + '/' + @repo + '/pulls?state=' + state + '&page=' + page.to_s + '&per_page=100'
             HTTP.auth('token ' + @token).get(message).code
         end
 
@@ -44,8 +44,8 @@ module GitAnalysis
         end    
 
         # get contributors for the repo
-        def get_contributors
-            message = 'https://api.github.com/repos/' + @owner + '/' + @repo + '/contributors'
+        def get_contributors(page)
+            message = 'https://api.github.com/repos/' + @owner + '/' + @repo + '/contributors?page=' + page.to_s + '&per_page=100'
             HTTP.auth('token ' + @token).get(message)
         end
     end

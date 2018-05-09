@@ -129,21 +129,71 @@ module GitAnalysis
                 body = @request.get_PR('open', page)
                 info = JSON.parse(body)
                 break if info.size == 0
-                num = info[0]['number']
-                user = info[0]['user']['login']
-                puts ''
-                puts '-------------------- Number: ' + num.to_s + ' --------------------'
-                puts 'User: ' + user
-                # get PR files
-                body = @request.get_PR_files(num)
-                info = JSON.parse(body)
-                info.each { |x|
+                items = info.size
+                cur = 0
+                while cur < items do
+                    num = info[cur]['number']
+                    user = info[cur]['user']['login']
                     puts ''
-                    puts '    Filename: ' + x['filename'].to_s
-                    puts '        Additions: ' + x['additions'].to_s
-                    puts '        Deletions: ' + x['deletions'].to_s
-                    puts '        Changes: ' + x['changes'].to_s
-                }
+                    puts '-------------------- Number: ' + num.to_s + ' --------------------'
+                    puts 'User: ' + user
+                    # get PR files
+                    body = @request.get_PR_files(num)
+                    info = JSON.parse(body)
+                    file_count = 0
+                    additions = 0
+                    deletions = 0
+                    changes = 0
+                    info.each { |x|
+                        file_count += 1
+                        additions += x['additions']
+                        deletions += x['deletions']
+                        changes += x['changes']
+                    }
+                    puts '    Number of Files: ' + file_count.to_s
+                    puts '    Additions: ' + additions.to_s
+                    puts '    Deletions: ' + deletions.to_s
+                    puts '    Changes: ' + changes.to_s
+                    cur += 1
+                end
+                page += 1
+            end
+        end
+
+        # for each contributor, print contributions and percentage ot total contributions
+        def print_contributors
+            puts '___________________________ Contributions ___________________________'
+            puts ''
+            page = 1
+            total_contrib = 0
+
+            loop do
+                body = @request.get_contributors(page)
+                info = JSON.parse(body)
+                break if info.size == 0
+                num = info.size
+                cur = 0
+                while cur < num do
+                    total_contrib += info[cur]['contributions']
+                    cur += 1
+                end
+                page += 1
+            end
+
+            page = 1
+            loop do
+                body = @request.get_contributors(page)
+                info = JSON.parse(body)
+                break if info.size == 0
+                num = info.size
+                cur = 0
+                while cur < num do
+                    user = info[cur]['login']
+                    contrib = info[cur]['contributions']
+                    percent = (contrib.to_f / total_contrib)*100
+                    puts user + ': ' + contrib.to_s + ' (' + percent.to_i.to_s + '%)'
+                    cur += 1
+                end
                 page += 1
             end
         end

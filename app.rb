@@ -1,5 +1,4 @@
 require_relative 'lib/git_analysis/gitanalyzer'
-require 'octokit'
 
 # check argument length
 if ARGV.length != 1 
@@ -13,3 +12,4 @@ git_analyzer = GitAnalysis::GitAnalyzer.new(url)
 git_analyzer.print_basic_info
 git_analyzer.print_num_prs
 git_analyzer.print_pr_sizes
+git_analyzer.print_contributors
