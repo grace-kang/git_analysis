@@ -1,17 +1,32 @@
 require 'http'
+require 'uri'
 require_relative 'authorization'
 
 module GitAnalysis
     class GitAnalyzer
 
         # initialize GitAnalyzer and create an Authorization object
-        def initialize(token, repo, owner)
-            @request = Authorization.new(token, repo, owner)
+        def initialize(repo_url)
+            unless repo_url =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]
+                abort("Aborting: Invalid URI")
+            end
+
+            uri = URI.parse(repo_url)
+            unless uri.host =~ /github.com/
+                abort("Aborting: not a github URL")
+            end
+
+            none, owner, repo = uri.path.split('/')
+            if owner == nil or repo == nil
+                abort('Aborting: invalid URL. Format: https://github.com/owner/repo')
+            end
+
+            @request = Authorization.new(ENV['TOKEN'], repo, owner)
 
             if @request.get_repo_code == 404
-                abort('Aborting: Unable to find repository, please check URL.')
+                abort('Aborting: (404) Unable to find repository, please check URL.')
             elsif @request.get_repo_code == 401
-                abort('Aborting: Invalid token, please check ENV["TOKEN"].')
+                abort('Aborting: (401) Invalid token, please check ENV["TOKEN"].')
             end
         end
 

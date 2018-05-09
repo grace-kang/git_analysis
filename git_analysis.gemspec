@@ -34,5 +34,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "http", "~> 3.3.0"
   spec.add_development_dependency "json", "~> 2.1.0"
-  spec.add_development_dependency "octokit", "~> 4.8.0"
 end
