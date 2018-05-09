@@ -122,7 +122,7 @@ module GitAnalysis
         
         # for each PR, print the size
         def print_pr_sizes
-            puts '_________________________ Pull Request Sizes _________________________'
+            puts '_________________________ Open Pull Request Sizes _________________________'
             puts ''
             page = 1
             loop do

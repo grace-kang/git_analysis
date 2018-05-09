@@ -43,6 +43,12 @@ module GitAnalysis
             HTTP.auth('token ' + @token).get(message)
         end    
 
+        # get if a PR has been merged
+        def get_PR_merged?(number)
+            message = 'https://api.github.com/repos/' + @owner + '/' + @repo + '/pulls/' + number.to_s + '/merge'
+            HTTP.auth('token ' + @token).get(message).code
+        end
+
         # get contributors for the repo
         def get_contributors(page)
             message = 'https://api.github.com/repos/' + @owner + '/' + @repo + '/contributors?page=' + page.to_s + '&per_page=100'
