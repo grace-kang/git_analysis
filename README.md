@@ -27,17 +27,17 @@ Or install it yourself as:
 
 ## Usage
 
-1. Set your environment variable 'TOKEN' as your token by executing:
+* Set your environment variable 'TOKEN' as your token by executing:
 
     $ export TOKEN=[your token]
  
-2. Include the following line in your application:
+* Include the following line in your application:
 
 ```ruby
 require 'git_analysis'
 ```
 
-3. Create a GitAnalyzer object:
+* Create a GitAnalyzer object:
 
 ```ruby
 analyzer = GitAnalysis::GitAnalyzer.new([URL])
@@ -45,7 +45,7 @@ analyzer = GitAnalysis::GitAnalyzer.new([URL])
 
 Format of the URL: https://github.com/[owner]/[repo]
 
-4. Functions:
+* Functions:
 
 ```ruby
 # basic repository information
