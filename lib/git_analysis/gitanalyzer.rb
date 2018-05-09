@@ -7,22 +7,28 @@ module GitAnalysis
 
         # initialize GitAnalyzer and create an Authorization object
         def initialize(repo_url)
+
+            # check validity of given repository url
             unless repo_url =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]
                 abort("Aborting: Invalid URI")
             end
 
             uri = URI.parse(repo_url)
+
             unless uri.host =~ /github.com/
                 abort("Aborting: not a github URL")
             end
 
             none, owner, repo = uri.path.split('/')
+
             if owner == nil or repo == nil
                 abort('Aborting: invalid URL. Format: https://github.com/owner/repo')
             end
 
+            # create Authorization object using token and repository info
             @request = Authorization.new(ENV['TOKEN'], repo, owner)
 
+            # check if repository exists and token is valid
             if @request.get_repo_code == 404
                 abort('Aborting: (404) Unable to find repository, please check URL.')
             elsif @request.get_repo_code == 401
@@ -30,30 +36,35 @@ module GitAnalysis
             end
         end
 
+        # return id of repository
         def get_id
             body = @request.get_repo
             info = JSON.parse(body)
             info['id']
         end
 
+        # return name of repository
         def get_name
             body = @request.get_repo
             info = JSON.parse(body)
             info['name']
         end
 
+        # return owner of repository
         def get_owner
             body = @request.get_repo
             info = JSON.parse(body)
             info['owner']['login']
         end
 
+        # return language of repository
         def get_language
             body = @request.get_repo
             info = JSON.parse(body)
             info['language']
         end
 
+        # return number of open pull requests
         def get_open_pr_count
             open_pulls = 0.to_s
             body = @request.get_PR('open', 1)
@@ -65,6 +76,7 @@ module GitAnalysis
             open_pulls.to_i
         end
 
+        # return number of closed pull requests
         def get_closed_pr_count
             closed_pulls = 0.to_s
             body = @request.get_PR('closed', 1)
@@ -77,6 +89,7 @@ module GitAnalysis
             closed_pulls.to_i
         end
 
+        # return number of open and closed pull requests
         def get_total_pr_count
             self.get_open_pr_count + self.get_closed_pr_count
         end
@@ -117,8 +130,10 @@ module GitAnalysis
                 info = JSON.parse(body)
                 break if info.size == 0
                 num = info[0]['number']
+                user = info[0]['user']['login']
                 puts ''
                 puts '-------------------- Number: ' + num.to_s + ' --------------------'
+                puts 'User: ' + user
                 # get PR files
                 body = @request.get_PR_files(num)
                 info = JSON.parse(body)

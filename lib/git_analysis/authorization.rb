@@ -13,12 +13,13 @@ module GitAnalysis
             @owner = owner
         end
 
-        # get a specific repo
+        # get the repo
         def get_repo
             message = 'https://api.github.com/repos/' + @owner + '/' + @repo
             HTTP.auth('token ' + @token).get(message)
         end
 
+        # get status code of the repo GET request
         def get_repo_code
             message = 'https://api.github.com/repos/' + @owner + '/' + @repo
             HTTP.auth('token ' + @token).get(message).code
@@ -30,6 +31,7 @@ module GitAnalysis
             HTTP.auth('token ' + @token).get(message)
         end
 
+        # get status code of a repo's PR get request
         def get_PR_code(state, page)
             message = 'https://api.github.com/repos/' + @owner + '/' + @repo + '/pulls?state=' + state + '&page=' + page.to_s + '&per_page=1'
             HTTP.auth('token ' + @token).get(message).code
@@ -40,5 +42,11 @@ module GitAnalysis
             message = 'https://api.github.com/repos/' + @owner + '/' + @repo + '/pulls/' + number.to_s + '/files'
             HTTP.auth('token ' + @token).get(message)
         end    
+
+        # get contributors for the repo
+        def get_contributors
+            message = 'https://api.github.com/repos/' + @owner + '/' + @repo + '/contributors'
+            HTTP.auth('token ' + @token).get(message)
+        end
     end
 end
