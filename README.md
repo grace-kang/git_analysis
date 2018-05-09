@@ -33,38 +33,38 @@ Or install it yourself as:
  
 ### Include the following line in your application:
 
-'''ruby
+```ruby
 require 'git_analysis'
-'''
+```
 
 ### Create a GitAnalyzer object:
 
-'''ruby
+```ruby
 analyzer = GitAnalysis::GitAnalyzer.new([URL])
-'''
+```
 
 Format of the URL: https://github.com/[owner]/[repo]
 
 ### Functions:
 
-'''ruby
+```ruby
 # basic repository information
 repo_id = analyzer.id
 repo_name = analyzer.name
 repo_owner = analyzer.owner
 repo_language = analyzer.language
 
-# pull request counts
+# pull request count
 open_prs = analyzer.get_open_pr_count
 closed_prs = analyzer.get_closed_pr_count
 total_prs = analyzer.get_total_pr_count
 
 # print functions
-analyzer.print_basic_info
-analyzer.print_num_prs
-analyzer.print_pr_sizes
-analyzer.print_contributors
-'''
+analyzer.print_basic_info # prints id, name, owner, language
+analyzer.print_num_prs # prints open, closed, and total pr count
+analyzer.print_pr_sizes # prints each pr's size
+analyzer.print_contributors # prints each contributor's contributions and percentage
+```
 
 
 ## Development
