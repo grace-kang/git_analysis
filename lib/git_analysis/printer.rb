@@ -14,7 +14,7 @@ module GitAnalysis
       puts 'Language: ' + @repo.language
       puts ''
     end
-  
+
     # print the number of open, closed, and total pull requests
     def print_num_prs
       puts ''
@@ -22,7 +22,7 @@ module GitAnalysis
       puts 'Closed PRs: ' + @repo.closed_pr_count.to_s
       puts ''
     end
-  
+
     # for each PR, print the size
     def print_open_pr_sizes
       puts ''

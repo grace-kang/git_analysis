@@ -49,7 +49,7 @@ module GitAnalysis
     # get status code of a single PR request
     def single_pull_request_code(number)
       message = 'https://api.github.com/repos/' + @owner + '/' + @repo +
-                  '/pulls/' + number.to_s
+                '/pulls/' + number.to_s
       HTTP.auth('token ' + @token).get(message).code
     end
 

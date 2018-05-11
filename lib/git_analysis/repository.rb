@@ -72,12 +72,9 @@ module GitAnalysis
       page = 1
       pr_numbers = []
       loop do
-        response = @request.pull_requests('open', page)
-        prs = JSON.parse(response)
+        prs = JSON.parse(@request.pull_requests('open', page))
         break if prs.empty?
-        prs.each { |x|
-          pr_numbers.push(x['number'])
-        }
+        prs.each { |x| pr_numbers.push(x['number']) }
         page += 1
       end
       pr_numbers
