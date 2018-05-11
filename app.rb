@@ -1,15 +1,13 @@
-require_relative 'lib/git_analysis/gitanalyzer'
+require 'git_analysis'
 
 # check argument length
-if ARGV.length != 1 
-    abort("Aborting: Incorrect number of arguments.")
-end
+abort('Aborting: Incorrect number of arguments.') unless ARGV.length == 2
 
-# initialize Octokit::Repository object from URL
-url = ARGV[0]
+owner = ARGV[0]
+repo = ARGV[1]
 
-git_analyzer = GitAnalysis::GitAnalyzer.new(url)
+git_analyzer = GitAnalysis::Printer.new(owner, repo)
 git_analyzer.print_basic_info
 git_analyzer.print_num_prs
-git_analyzer.print_pr_sizes
-git_analyzer.print_contributors
+# git_analyzer.print_open_pr_sizes
+# git_analyzer.print_contributors
