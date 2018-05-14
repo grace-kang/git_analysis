@@ -1,42 +1,77 @@
 describe GitAnalysis::Repository do
+  let(:token) { ENV['TOKEN'] }
   let(:owner) { 'solidusio' }
   let(:repo) { 'solidus' }
-  let(:id) { 30985840 }
-  let(:language) { 'Ruby' }
-  let(:open_prs) { 50 }
-  subject { GitAnalysis::Repository.new(owner, repo) }
   
   describe '#initialize' do
-    it { is_expected.to be_a GitAnalysis::Repository }
+    it 'is of class GitAnalysis::Repository' do
+      VCR.use_cassette('repo_info') do
+        object = GitAnalysis::Repository.new(owner, repo)
+        expect(object.class).to eq(GitAnalysis::Repository)
+      end
+    end
   end
 
-  describe '#get_id' do
+  describe '#id' do
     it 'returns the repo id' do
-      expect(subject.get_id).to eq(id)
+      VCR.use_cassette('repo_info') do
+        object = GitAnalysis::Repository.new(owner, repo)
+        id = object.id
+        expect(id).to eql(30985840)
+      end
     end
   end
 
-  describe '#get_name' do
+  describe '#name' do
     it 'returns the repo name' do
-      expect(subject.get_name).to eq(repo)
+      VCR.use_cassette('repo_info') do
+        request = GitAnalysis::Authorization.new(ENV['TOKEN'], repo, owner)
+        res = JSON.parse(request.repo_info.body)
+        expect(res.keys).to include('name')
+      end
     end
   end
 
-  describe '#get_owner' do
+  describe '#owner' do
     it 'returns the repo owner' do
-      expect(subject.get_owner).to eq(owner)
+      VCR.use_cassette('repo_info') do
+        request = GitAnalysis::Authorization.new(ENV['TOKEN'], repo, owner)
+        res = JSON.parse(request.repo_info.body)
+        expect(res.keys).to include('owner')
+        expect(res['owner'].keys).to include('login')
+      end
     end
   end
 
-  describe '#get_language' do
+  describe '#language' do
     it 'returns the repo language' do
-      expect(subject.get_language).to eq(language)
+      VCR.use_cassette('repo_info') do
+        request = GitAnalysis::Authorization.new(ENV['TOKEN'], repo, owner)
+        res = JSON.parse(request.repo_info.body)
+        expect(res.keys).to include('language')
+      end
     end
   end
 
-  describe '#get_open_pr_count' do
-    it 'returns open pr count' do
-      expect(subject.get_open_pr_count).to eq(open_prs)
+  describe '#open_pr_count' do
+    it 'returns pull request page' do
+      VCR.use_cassette('pull_request_count') do
+        request = GitAnalysis::Authorization.new(ENV['TOKEN'], repo, owner)
+        res = JSON.parse(request.pull_request_count('open',1))
+        expect(res.keys).to include('number')
+      end
+    end
+  end
+
+  describe '#closed_pr_count' do
+    subject { object }
+
+    it 'returns pull request page' do
+      VCR.use_cassette('pull_request_count') do
+        request = GitAnalysis::Authorization.new(ENV['TOKEN'], repo, owner)
+        res = JSON.parse(request.pull_request_count('closed',1))
+        expect(res.keys).to include('number')
+      end
     end
   end
 end

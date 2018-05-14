@@ -19,12 +19,6 @@ module GitAnalysis
       HTTP.auth('token ' + @token).get(message)
     end
 
-    # get status code of the repo GET request
-    def repo_info_code
-      message = 'https://api.github.com/repos/' + @owner + '/' + @repo
-      HTTP.auth('token ' + @token).get(message).code
-    end
-
     # get pull requests 1 per page
     def pull_request_count(state, page)
       message = 'https://api.github.com/repos/' + @owner + '/' + @repo +
@@ -44,13 +38,6 @@ module GitAnalysis
       message = 'https://api.github.com/repos/' + @owner + '/' + @repo +
                 '/pulls/' + number.to_s
       HTTP.auth('token ' + @token).get(message)
-    end
-
-    # get status code of a single PR request
-    def single_pull_request_code(number)
-      message = 'https://api.github.com/repos/' + @owner + '/' + @repo +
-                '/pulls/' + number.to_s
-      HTTP.auth('token ' + @token).get(message).code
     end
 
     # get the files for a specific PR

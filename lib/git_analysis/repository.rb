@@ -5,11 +5,11 @@ module GitAnalysis
       # create Authorization object using token and repository info
       @request = Authorization.new(ENV['TOKEN'], repo, owner)
 
-      # check if repository exists and token is valid
-      if @request.repo_info_code == 404
-        abort('Aborting: (404) Unable to find repository, please check URL.')
-      elsif @request.repo_info_code == 401
-        abort('Aborting: (401) Invalid token, please check ENV["TOKEN"].')
+      check if repository exists and token is valid
+      if @request.repo_info.code == 404
+        raise RepositoryError.new("Page not found")
+      elsif @request.repo_info.code == 401
+        raise RepositoryError.new("Bad credentials")
       end
     end
 

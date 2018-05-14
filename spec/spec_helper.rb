@@ -1,4 +1,8 @@
-require "bundler/setup"
+require 'bundler/setup'
+require 'webmock/rspec'
+require 'git_analysis'
+require 'vcr'
+require 'test/unit'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -13,3 +17,17 @@ RSpec.configure do |config|
 
   config.expose_dsl_globally = true
 end
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/vcr"
+  config.hook_into :webmock
+end
+
+# class VCR_response < Test::Unit::TestCase
+#   def repo_info 
+#     VCR.use_cassette("synopsis") do
+#       response = Net::HTTP.get_response(URI('https://www.api.github.com/solidusio/solidus'))
+#       assert_match /id/, response.body
+#     end
+#   end
+# end

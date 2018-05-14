@@ -2,7 +2,7 @@ module GitAnalysis
   # this class contains methods that retrieve a specific PR's information
   class PullRequest
     def initialize(authorization_instance, number)
-      code = authorization_instance.single_pull_request_code(number)
+      code = authorization_instance.single_pull_request(number).code
       abort('Aborting: Cannot find specified pull request') if code != 200
 
       @request = authorization_instance
