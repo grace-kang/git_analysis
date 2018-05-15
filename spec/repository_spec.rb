@@ -10,6 +10,18 @@ describe GitAnalysis::Repository do
         expect(object.class).to eq(GitAnalysis::Repository)
       end
     end
+
+    context 'when response is 404' do
+      it 'raises an error' do
+        expect { subject }.to raise_error(GitAnalysis::RepositoryError)
+      end
+    end
+
+    context 'when response is 401' do
+      it 'raises an error' do
+        expect { subject }.to raise_error(GitAnalysis::RepositoryError)
+      end
+    end
   end
 
   describe '#id' do

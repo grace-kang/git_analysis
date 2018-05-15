@@ -1,42 +1,50 @@
 module GitAnalysis
   # prints information about the repository
   class Printer
+    attr_reader :auth
+
     def initialize(owner, repo)
-      @repo = GitAnalysis::Repository.new(owner, repo)
+      @auth = GitAnalysis::Authorization.new(owner, repo)
     end
 
     # print repo ID, name, owner, language
     def print_basic_info
+      repo = @auth.create_repo
       puts ''
-      puts 'ID: ' + @repo.id.to_s
-      puts 'Name: ' + @repo.name
-      puts 'Owner: ' + @repo.owner
-      puts 'Language: ' + @repo.language
+      puts '___________________________ Repository Information ___________________________'
+      puts ''
+      puts 'ID: ' + repo.id.to_s
+      puts 'Name: ' + repo.name
+      puts 'Owner: ' + repo.owner
+      puts 'Language: ' + repo.language
       puts ''
     end
 
     # print the number of open, closed, and total pull requests
     def print_num_prs
+      open_prs = @auth.pr_number_list('open')
+      closed_prs = @auth.pr_number_list('closed')
+      puts '___________________________ Number of Pull Requests ___________________________'
       puts ''
-      puts 'Open PRs:   ' + @repo.open_pr_count.to_s
-      puts 'Closed PRs: ' + @repo.closed_pr_count.to_s
+      puts 'Open PRs:   ' + open_prs.count.to_s
+      puts 'Closed PRs: ' + closed_prs.count.to_s
       puts ''
     end
 
     # for each PR, print the size
     def print_open_pr_sizes
+      puts '___________________________ Open Pull Request Sizes ___________________________'
       puts ''
-      pr_numbers = @repo.open_pr_numbers
-      pr_numbers.each { |x|
-        pr = @repo.pr(x)
-        size = pr.size
-        puts 'PR ' + x.to_s
-        puts '  Files: ' + size['file_count'].to_s
-        puts '  Additions: ' + size['additions'].to_s
-        puts '  Deletions: ' + size['deletions'].to_s
-        puts '  Changes: ' + size['changes'].to_s
+      pr_numbers = @auth.pr_number_list('open')
+      pr_numbers.each do |x|
+        pr = @auth.create_pr(x)
+        puts 'PR ' + pr.number.to_s
+        puts '  Files: ' + pr.file_count.to_s
+        puts '  Additions: ' + pr.additions.to_s
+        puts '  Deletions: ' + pr.deletions.to_s
+        puts '  Changes: ' + pr.changes.to_s
         puts ''
-      }
+      end
     end
 
     #TODO: fix this or get rid of it

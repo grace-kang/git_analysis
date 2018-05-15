@@ -1,0 +1,82 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.github.com/repos/solidusio/solidus
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Authorization:
+      - token 112a4dd37f7dc5265a820e13478da9e3c0cb03d3
+      Connection:
+      - close
+      Host:
+      - api.github.com
+      User-Agent:
+      - http.rb/3.3.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Mon, 14 May 2018 18:57:46 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '5754'
+      Connection:
+      - close
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4999'
+      X-Ratelimit-Reset:
+      - '1526327866'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      Etag:
+      - '"bc8529a2b36f502b55939504988e1f11"'
+      Last-Modified:
+      - Mon, 14 May 2018 16:39:41 GMT
+      X-Oauth-Scopes:
+      - repo
+      X-Accepted-Oauth-Scopes:
+      - repo
+      X-Github-Media-Type:
+      - github.v3; format=json
+      Access-Control-Expose-Headers:
+      - ETag, Link, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining,
+        X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Frame-Options:
+      - deny
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Referrer-Policy:
+      - origin-when-cross-origin, strict-origin-when-cross-origin
+      Content-Security-Policy:
+      - default-src 'none'
+      X-Runtime-Rack:
+      - '0.059956'
+      X-Github-Request-Id:
+      - 15E1:2A2F:340756E:6C46C60:5AF9DC2A
+    body:
+      encoding: UTF-8
+      string: '{"id":30985840,"name":"solidus","full_name":"solidusio/solidus","owner":{"login":"solidusio","id":11045486,"avatar_url":"https://avatars1.githubusercontent.com/u/11045486?v=4","gravatar_id":"","url":"https://api.github.com/users/solidusio","html_url":"https://github.com/solidusio","followers_url":"https://api.github.com/users/solidusio/followers","following_url":"https://api.github.com/users/solidusio/following{/other_user}","gists_url":"https://api.github.com/users/solidusio/gists{/gist_id}","starred_url":"https://api.github.com/users/solidusio/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/solidusio/subscriptions","organizations_url":"https://api.github.com/users/solidusio/orgs","repos_url":"https://api.github.com/users/solidusio/repos","events_url":"https://api.github.com/users/solidusio/events{/privacy}","received_events_url":"https://api.github.com/users/solidusio/received_events","type":"Organization","site_admin":false},"private":false,"html_url":"https://github.com/solidusio/solidus","description":"Solidus,
+        Rails eCommerce System","fork":false,"url":"https://api.github.com/repos/solidusio/solidus","forks_url":"https://api.github.com/repos/solidusio/solidus/forks","keys_url":"https://api.github.com/repos/solidusio/solidus/keys{/key_id}","collaborators_url":"https://api.github.com/repos/solidusio/solidus/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/solidusio/solidus/teams","hooks_url":"https://api.github.com/repos/solidusio/solidus/hooks","issue_events_url":"https://api.github.com/repos/solidusio/solidus/issues/events{/number}","events_url":"https://api.github.com/repos/solidusio/solidus/events","assignees_url":"https://api.github.com/repos/solidusio/solidus/assignees{/user}","branches_url":"https://api.github.com/repos/solidusio/solidus/branches{/branch}","tags_url":"https://api.github.com/repos/solidusio/solidus/tags","blobs_url":"https://api.github.com/repos/solidusio/solidus/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/solidusio/solidus/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/solidusio/solidus/git/refs{/sha}","trees_url":"https://api.github.com/repos/solidusio/solidus/git/trees{/sha}","statuses_url":"https://api.github.com/repos/solidusio/solidus/statuses/{sha}","languages_url":"https://api.github.com/repos/solidusio/solidus/languages","stargazers_url":"https://api.github.com/repos/solidusio/solidus/stargazers","contributors_url":"https://api.github.com/repos/solidusio/solidus/contributors","subscribers_url":"https://api.github.com/repos/solidusio/solidus/subscribers","subscription_url":"https://api.github.com/repos/solidusio/solidus/subscription","commits_url":"https://api.github.com/repos/solidusio/solidus/commits{/sha}","git_commits_url":"https://api.github.com/repos/solidusio/solidus/git/commits{/sha}","comments_url":"https://api.github.com/repos/solidusio/solidus/comments{/number}","issue_comment_url":"https://api.github.com/repos/solidusio/solidus/issues/comments{/number}","contents_url":"https://api.github.com/repos/solidusio/solidus/contents/{+path}","compare_url":"https://api.github.com/repos/solidusio/solidus/compare/{base}...{head}","merges_url":"https://api.github.com/repos/solidusio/solidus/merges","archive_url":"https://api.github.com/repos/solidusio/solidus/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/solidusio/solidus/downloads","issues_url":"https://api.github.com/repos/solidusio/solidus/issues{/number}","pulls_url":"https://api.github.com/repos/solidusio/solidus/pulls{/number}","milestones_url":"https://api.github.com/repos/solidusio/solidus/milestones{/number}","notifications_url":"https://api.github.com/repos/solidusio/solidus/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/solidusio/solidus/labels{/name}","releases_url":"https://api.github.com/repos/solidusio/solidus/releases{/id}","deployments_url":"https://api.github.com/repos/solidusio/solidus/deployments","created_at":"2015-02-18T20:41:58Z","updated_at":"2018-05-14T16:39:41Z","pushed_at":"2018-05-14T12:25:08Z","git_url":"git://github.com/solidusio/solidus.git","ssh_url":"git@github.com:solidusio/solidus.git","clone_url":"https://github.com/solidusio/solidus.git","svn_url":"https://github.com/solidusio/solidus","homepage":"https://solidus.io/","size":69724,"stargazers_count":1804,"watchers_count":1804,"language":"Ruby","has_issues":true,"has_projects":true,"has_downloads":true,"has_wiki":true,"has_pages":false,"forks_count":593,"mirror_url":null,"archived":false,"open_issues_count":162,"license":{"key":"other","name":"Other","spdx_id":null,"url":null},"forks":593,"open_issues":162,"watchers":1804,"default_branch":"master","permissions":{"admin":false,"push":false,"pull":true},"organization":{"login":"solidusio","id":11045486,"avatar_url":"https://avatars1.githubusercontent.com/u/11045486?v=4","gravatar_id":"","url":"https://api.github.com/users/solidusio","html_url":"https://github.com/solidusio","followers_url":"https://api.github.com/users/solidusio/followers","following_url":"https://api.github.com/users/solidusio/following{/other_user}","gists_url":"https://api.github.com/users/solidusio/gists{/gist_id}","starred_url":"https://api.github.com/users/solidusio/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/solidusio/subscriptions","organizations_url":"https://api.github.com/users/solidusio/orgs","repos_url":"https://api.github.com/users/solidusio/repos","events_url":"https://api.github.com/users/solidusio/events{/privacy}","received_events_url":"https://api.github.com/users/solidusio/received_events","type":"Organization","site_admin":false},"network_count":593,"subscribers_count":128}'
+    http_version: 
+  recorded_at: Mon, 14 May 2018 18:57:46 GMT
+recorded_with: VCR 4.0.0
