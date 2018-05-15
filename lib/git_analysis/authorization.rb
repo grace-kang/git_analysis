@@ -15,11 +15,11 @@ module GitAnalysis
 
     def raise_errors(code)
       if code == 404
-        raise GitAnalysis::RepositoryError.new("Invalid Repository")
+        raise GitAnalysis::ResponseError.new("Invalid Repository")
       elsif code == 401
-        raise GitAnalysis::RepositoryError.new("Bad Credentials")
+        raise GitAnalysis::ResponseError.new("Bad Credentials")
       elsif code == 429
-        raise GitAnalysis::RepositoryError.new("API rate limit exceeded")
+        raise GitAnalysis::ResponseError.new("API rate limit exceeded")
       end
     end
 

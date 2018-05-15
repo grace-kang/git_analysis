@@ -16,19 +16,19 @@ describe GitAnalysis::Authorization do
   describe '#raise_errors' do
     context '404: page not found' do
       it 'returns RepositoryError' do
-        expect{auth.raise_errors(not_found)}.to raise_error(GitAnalysis::RepositoryError)
+        expect{auth.raise_errors(not_found)}.to raise_error(GitAnalysis::ResponseError)
       end
     end
       
     context '401: bad credentials' do
       it 'returns RepositoryError' do
-        expect{auth.raise_errors(bad_cred)}.to raise_error(GitAnalysis::RepositoryError)
+        expect{auth.raise_errors(bad_cred)}.to raise_error(GitAnalysis::ResponseError)
       end
     end
 
     context '429: api rate limit exceeded' do
       it 'returns RepositoryError' do
-        expect{auth.raise_errors(api_exc)}.to raise_error(GitAnalysis::RepositoryError)
+        expect{auth.raise_errors(api_exc)}.to raise_error(GitAnalysis::ResponseError)
       end
     end
   end
