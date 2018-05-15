@@ -3,7 +3,7 @@ describe GitAnalysis::ResponseError do
   let(:error) { GitAnalysis::ResponseError.new(message) }
 
   describe '#initialize' do
-    it 'is an instance of ResponseError' do
+    it 'returns a new GitAnalysis::ResponseError object' do
       expect(error.class).to eq(GitAnalysis::ResponseError)
       expect(error.message).to eq(message)
     end
