@@ -3,20 +3,33 @@ require 'http'
 module GitAnalysis
   # uses the given token to make HTTP get requests to https://api.github.com/repos
   class Authorization
-    attr_reader :token
-    attr_reader :repo
+    # attr_reader :token
     attr_reader :owner
+    attr_reader :repo
 
     def initialize(owner, repo)
-      @token = ENV['TOKEN']
+      # @token = ENV['TOKEN']
       @repo = repo
       @owner = owner
+    end
+
+    def raise_errors(code)
+      if code == 404
+        raise GitAnalysis::RepositoryError.new("Invalid Repository")
+      elsif code == 401
+        raise GitAnalysis::RepositoryError.new("Bad Credentials")
+      elsif code == 429
+        raise GitAnalysis::RepositoryError.new("API rate limit exceeded")
+      end
     end
 
     # returns http response of repository
     def request_repo
       message = 'https://api.github.com/repos/' + @owner + '/' + @repo
-      HTTP.auth('token ' + @token).get(message)
+      # HTTP.auth('token ' + @token).get(message)
+      response = HTTP.get(message)
+      raise_errors(response.code)
+      response
     end
 
     # create an instance of GitAnalysis::Repository
@@ -29,14 +42,18 @@ module GitAnalysis
     def request_pr_list(state, per_page, page)
       message = 'https://api.github.com/repos/' + @owner + '/' + @repo +
                 '/pulls?state=' + state + '&page=' + page.to_s + '&per_page=' + per_page.to_s
-      HTTP.auth('token ' + @token).get(message)
+      response = HTTP.get(message)
+      raise_errors(response.code)
+      response
     end
 
     # returns http response of specific pr
     def request_pr(number)
       message = 'https://api.github.com/repos/' + @owner + '/' + @repo +
                 '/pulls/' + number.to_s
-      HTTP.auth('token ' + @token).get(message)
+      response = HTTP.get(message)
+      raise_errors(response.code)
+      response
     end
 
     # return an array of pr numbers given state
@@ -56,14 +73,16 @@ module GitAnalysis
     def request_pr_files(number)
       message = 'https://api.github.com/repos/' + @owner + '/' + @repo +
                 '/pulls/' + number.to_s + '/files'
-      HTTP.auth('token ' + @token).get(message)
+      response = HTTP.get(message)
+      raise_errors(response.code)
+      response
     end
 
     # returns a new instance of GitAnalysis::PullRequest
     def create_pr(number)
       response = JSON.parse(request_pr(number))
       owner = response['user']['login']
-    files = JSON.parse(request_pr_files(number))
+      files = JSON.parse(request_pr_files(number))
 
       file_count = files.size
       additions = 0
