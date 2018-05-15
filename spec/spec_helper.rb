@@ -22,12 +22,3 @@ VCR.configure do |config|
   config.cassette_library_dir = "spec/vcr"
   config.hook_into :webmock
 end
-
-# class VCR_response < Test::Unit::TestCase
-#   def repo_info 
-#     VCR.use_cassette("synopsis") do
-#       response = Net::HTTP.get_response(URI('https://www.api.github.com/solidusio/solidus'))
-#       assert_match /id/, response.body
-#     end
-#   end
-# end
