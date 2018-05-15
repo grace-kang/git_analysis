@@ -42,7 +42,7 @@ describe GitAnalysis::Authorization do
   end
 
   describe '#create_repo' do
-    it 'creates a GitAnalysis::Repository object' do
+    it 'returns a new GitAnalysis::Repository object' do
       VCR.use_cassette('repo_info') do
         object = auth.create_repo
         expect(object.class).to eq(GitAnalysis::Repository)
@@ -106,7 +106,7 @@ describe GitAnalysis::Authorization do
   describe '#create_pr' do
     number = 2734
 
-    it 'returns 200' do
+    it 'returns a new GitAnalysis::Repository object' do
       VCR.use_cassette('request_pr_files') do
         VCR.use_cassette('request_pr') do
           object = auth.create_pr(number)

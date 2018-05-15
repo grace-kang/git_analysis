@@ -6,7 +6,7 @@ describe GitAnalysis::PullRequest do
   let(:changes) { 1 }
 
   describe '#initialize' do
-    it 'returns an instance of GitAnalysis::PullRequest' do
+    it 'returns a new GitAnalysis::PullRequest object' do
       object = GitAnalysis::PullRequest.new(number, file_count, additions, deletions, changes)
       expect(object.class).to eq(GitAnalysis::PullRequest)
     end
