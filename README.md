@@ -2,13 +2,6 @@
 
 A RubyGem that analyzes a git repository and outputs basic information and PR information.
 
-Upon running app.rb with a repository URL, the following will be outputed:
-
-1. Repository Information
-2. Number of Pull Requests
-3. Pull Request Sizes
-
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -31,7 +24,7 @@ Or install it yourself as:
 
     $ export CHANGELOG_GITHUB_TOKEN=[your token]
 
-  Note: Without setting your token, you may get a GitAnalysis::RepositoryError - API rate limit exceeded while making requests to the api.github.com
+  Note: You may proceed without this step but you are only allowed 50 requests per hour and may get an exception (GitAnalysis::RepositoryError - API rate limit exceeded) if you reach this limit.
  
 **Include the following line in your application:**
 
@@ -73,6 +66,11 @@ pr_changes = pr.changes
 ```
 
 **Usage Example - GitAnalysis::Printer**
+
+Run the following to see an example of Printer in action:
+
+  $ bundle exec ruby app.rb [enter owner] [enter repo name]
+
 
 ```ruby
 # create a printer object
