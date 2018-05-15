@@ -27,9 +27,11 @@ Or install it yourself as:
 
 ## Usage
 
-**Set your environment variable 'TOKEN' as your token by executing:**
+**Set your environment variable 'CHANGELOG_GITHUB_TOKEN' as your token by executing:**
 
-    $ export TOKEN=[your token]
+    $ export CHANGELOG_GITHUB_TOKEN=[your token]
+
+  Note: Without setting your token, you may get a GitAnalysis::RepositoryError - API rate limit exceeded while making requests to the api.github.com
  
 **Include the following line in your application:**
 
@@ -37,33 +39,49 @@ Or install it yourself as:
 require 'git_analysis'
 ```
 
-**Create a GitAnalyzer object:**
+**Create an Authorization object:**
 
 ```ruby
-analyzer = GitAnalysis::GitAnalyzer.new([URL])
+# NOTE: any requests made returning status codes 404, 401, and 429 will raise a GitAnalysis::ResponseError and won't be handled
+auth = GitAnalysis::Authorization.new(owner, repo_name)
+
+# create Repository objecy
+repo = auth.create_repo
+
+# create GitAnalysis::PullRequest object from valid PR number
+pr = auth.create_pr(pr_number)
+
+# returns a list of the repository's PR numbers given the PR state
+open_pr_numbers = auth.pr_number_list('open')
 ```
 
-Note: Format of the URL: https://github.com/[owner]/[repo]
+**GitAnalysis::Repository class attributes:**
+```ruby
+repo_id = repo.id
+repo_name = repo.name
+repo_owner = repo.owner
+repo_language = repo.language
+```
 
-**Functions:**
+**GitAnalysis::PullRequest class attributes:**
+```ruby
+pr_number = pr.number
+pr_file_count = pr.file_count
+pr_additions = pr.additions
+pr_deletions = pr.deletions
+pr_changes = pr.changes
+```
+
+**Usage Example - GitAnalysis::Printer**
 
 ```ruby
-# basic repository information
-repo_id = analyzer.id
-repo_name = analyzer.name
-repo_owner = analyzer.owner
-repo_language = analyzer.language
-
-# pull request count
-open_prs = analyzer.get_open_pr_count
-closed_prs = analyzer.get_closed_pr_count
-total_prs = analyzer.get_total_pr_count
+# create a printer object
+printer = GitAnalysis::Printer.new(repo_object, open_pr_count, closed_pr_count)
 
 # print functions
 analyzer.print_basic_info # prints id, name, owner, language
 analyzer.print_num_prs # prints open, closed, and total pr count
-analyzer.print_pr_sizes # prints each pr's size
-analyzer.print_contributors # prints each contributor's contributions and percentage
+analyzer.print_pr_size(pr_object) # prints a given pr's size
 ```
 
 
