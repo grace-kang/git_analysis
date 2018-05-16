@@ -35,7 +35,7 @@ require 'git_analysis'
 **Create an Authorization object:**
 
 ```ruby
-# NOTE: any requests made returning status codes 404, 401, and 429 will raise a GitAnalysis::ResponseError and won't be handled
+# NOTE: any unsuccesful requests will raise a GitAnalysis::ResponseError and won't be handled
 auth = GitAnalysis::Authorization.new(owner, repo_name)
 
 # create Repository objecy

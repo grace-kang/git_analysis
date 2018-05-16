@@ -17,6 +17,7 @@ module GitAnalysis
       raise GitAnalysis::ResponseError, 'Invalid Repository' if code == 404
       raise GitAnalysis::ResponseError, 'Bad Credentials' if code == 401
       raise GitAnalysis::ResponseError, 'API rate limit exceeded' if code == 429
+      raise GitAnalysis::ResponseError, 'Unknown Error' if code != 200
     end
 
     # returns http response of repository
