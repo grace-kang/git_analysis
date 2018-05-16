@@ -1,5 +1,6 @@
 describe GitAnalysis::PullRequest do
   let(:number) { 2734 }
+  let(:owner) { 'user' }
   let(:file_count) { 1 }
   let(:additions) { 1 }
   let(:deletions) { 0 }
@@ -7,7 +8,7 @@ describe GitAnalysis::PullRequest do
 
   describe '#initialize' do
     it 'returns a new GitAnalysis::PullRequest object' do
-      object = GitAnalysis::PullRequest.new(number, file_count, additions, deletions, changes)
+      object = GitAnalysis::PullRequest.new(number, owner, file_count, additions, deletions, changes)
       expect(object.class).to eq(GitAnalysis::PullRequest)
     end
   end

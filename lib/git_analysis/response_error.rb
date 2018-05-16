@@ -1,4 +1,5 @@
 module GitAnalysis
+  # an error that is raised when an invalid response is given
   class ResponseError < StandardError
     attr_reader :message
 

@@ -28,6 +28,7 @@ module GitAnalysis
     # for each PR, print the size
     def print_pr_size(pr_object)
       puts 'PR ' + pr_object.number.to_s
+      puts 'Owner: ' + pr_object.owner
       puts '  Files: ' + pr_object.file_count.to_s
       puts '  Additions: ' + pr_object.additions.to_s
       puts '  Deletions: ' + pr_object.deletions.to_s

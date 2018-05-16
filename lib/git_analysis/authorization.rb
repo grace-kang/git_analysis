@@ -14,13 +14,9 @@ module GitAnalysis
     end
 
     def raise_errors(code)
-      if code == 404
-        raise GitAnalysis::ResponseError.new("Invalid Repository")
-      elsif code == 401
-        raise GitAnalysis::ResponseError.new("Bad Credentials")
-      elsif code == 429
-        raise GitAnalysis::ResponseError.new("API rate limit exceeded")
-      end
+      raise GitAnalysis::ResponseError, 'Invalid Repository' if code == 404
+      raise GitAnalysis::ResponseError, 'Bad Credentials' if code == 401
+      raise GitAnalysis::ResponseError, 'API rate limit exceeded' if code == 429
     end
 
     # returns http response of repository
@@ -66,7 +62,7 @@ module GitAnalysis
         prs.each { |x| pr_numbers.push(x['number']) }
         page += 1
       end
-      pr_numbers 
+      pr_numbers
     end
 
     # get the files for a specific PR
@@ -95,7 +91,7 @@ module GitAnalysis
         changes += file['changes'].to_i
       end
 
-      GitAnalysis::PullRequest.new(number, file_count, additions, deletions, changes)
+      GitAnalysis::PullRequest.new(number, owner, file_count, additions, deletions, changes)
     end
   end
 end
