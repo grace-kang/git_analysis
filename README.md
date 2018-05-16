@@ -72,6 +72,7 @@ Run the following to see an example of Printer in action:
 
     $ bundle exec ruby app.rb [enter owner] [enter repo name]
 
+Use Printer in your own code:
 
 ```ruby
 # create a printer object
