@@ -59,6 +59,7 @@ repo_language = repo.language
 **GitAnalysis::PullRequest class attributes:**
 ```ruby
 pr_number = pr.number
+pr_owner = pr.owner
 pr_file_count = pr.file_count
 pr_additions = pr.additions
 pr_deletions = pr.deletions
