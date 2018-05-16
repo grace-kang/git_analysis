@@ -70,7 +70,7 @@ pr_changes = pr.changes
 
 Run the following to see an example of Printer in action:
 
-  $ bundle exec ruby app.rb [enter owner] [enter repo name]
+    $ bundle exec ruby app.rb [enter owner] [enter repo name]
 
 
 ```ruby
