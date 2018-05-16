@@ -38,7 +38,7 @@ require 'git_analysis'
 # NOTE: any unsuccesful requests will raise a GitAnalysis::ResponseError and won't be handled
 auth = GitAnalysis::Authorization.new(owner, repo_name)
 
-# create Repository objecy
+# create Repository object
 repo = auth.create_repo
 
 # create GitAnalysis::PullRequest object from valid PR number
