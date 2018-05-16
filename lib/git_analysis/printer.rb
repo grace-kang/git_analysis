@@ -12,27 +12,26 @@ module GitAnalysis
     end
 
     # print repo ID, name, owner, language
-    def print_basic_info
-      puts 'ID: ' + @repo.id.to_s
-      puts 'Name: ' + @repo.name
-      puts 'Owner: ' + @repo.owner
-      puts 'Language: ' + @repo.language
+    def basic_info
+      "ID: #{@repo.id}\
+      Name: #{@repo.name}\
+      Owner: #{@repo.owner}\
+      Language: #{@repo.language}\n"
     end
 
     # print the number of open and closed pull requests
-    def print_num_prs
-      puts 'Open PRs:   ' + open_pr_count.to_s
-      puts 'Closed PRs: ' + closed_pr_count.to_s
+    def num_prs
+      "Open PRs: #{open_pr_count}\
+      Closed PRs: #{closed_pr_count}\n"
     end
 
     # for each PR, print the size
-    def print_pr_size(pr_object)
-      puts 'PR ' + pr_object.number.to_s
-      puts 'Owner: ' + pr_object.owner
-      puts '  Files: ' + pr_object.file_count.to_s
-      puts '  Additions: ' + pr_object.additions.to_s
-      puts '  Deletions: ' + pr_object.deletions.to_s
-      puts '  Changes: ' + pr_object.changes.to_s
+    def pr_size(pr_object)
+      "PR #{pr_object.number}\
+        Files: #{pr_object.file_count}\
+          Additions: #{pr_object.additions}\
+            Deletions: #{pr_object.deletions}\
+              Changes: #{pr_object.changes}\n"
     end
   end
 end

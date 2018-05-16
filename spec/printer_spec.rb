@@ -11,30 +11,21 @@ describe GitAnalysis::Printer do
     end
   end
 
-  describe '#print_basic_info' do
+  describe '#basic_info' do
     it 'prints basic repository information' do
-      expect { object.print_basic_info }.to output('ID: ' +
-        repo.id.to_s + + "\n" + 'Name: ' + repo.name + "\n" + 'Owner: ' +
-        repo.owner + "\n" + 'Language: ' + repo.language + "\n").to_stdout
+      expect(object.basic_info).to include("ID: #{repo.id}")
     end
   end
 
-  describe '#print_num_prs' do
+  describe '#num_prs' do
     it 'prints the number of open and closed pull requests' do
-      expect { object.print_num_prs }.to output('Open PRs:   ' +
-        object.open_pr_count.to_s + "\n" + 'Closed PRs: ' +
-        object.closed_pr_count.to_s + "\n").to_stdout
+      expect(object.num_prs).to include("Open PRs: #{open_pr_count}")
     end
   end
 
-  describe '#print_pr_size' do
+  describe '#pr_size' do
     it 'prints the size of the given pr' do
-      expect { object.print_pr_size(pr_object) }.to output('PR ' +
-        pr_object.number.to_s + "\n" + 'Owner: ' + pr_object.owner + "\n" +
-        '  Files: ' + pr_object.file_count.to_s + "\n" + '  Additions: ' +
-        pr_object.additions.to_s + "\n" + '  Deletions: ' +
-        pr_object.deletions.to_s + "\n" + '  Changes: ' +
-        pr_object.changes.to_s + "\n").to_stdout
+      expect(object.pr_size(pr_object)).to include("PR #{pr_object.number}")
     end
   end
 end
