@@ -15,7 +15,7 @@ module GitAnalysis
     # returns http response of repository
     def self.repo(owner, repo)
       message = "https://api.github.com/repos/#{owner}/#{repo}" 
-      response = HTTP.get(message)
+      response = HTTP.auth("token #{ENV['CHANGELOG_GITHUB_TOKEN']}").get(message)
       self.raise_errors(response.code)
       response
     end
@@ -23,7 +23,7 @@ module GitAnalysis
     # returns http response of prs
     def self.repo_prs(owner, repo, state, per_page, page)
       message = "https://api.github.com/repos/#{owner}/#{repo}/pulls?state=#{state}&per_page=#{per_page}&page=#{page}"
-      response = HTTP.get(message)
+      response = HTTP.auth("token #{ENV['CHANGELOG_GITHUB_TOKEN']}").get(message)
       self.raise_errors(response.code)
       response
     end
@@ -31,7 +31,7 @@ module GitAnalysis
     # returns http response of specific pr
     def self.pr(owner, repo, number)
       message = "https://api.github.com/repos/#{owner}/#{repo}/pulls/#{number}"
-      response = HTTP.get(message)
+      response = HTTP.auth("token #{ENV['CHANGELOG_GITHUB_TOKEN']}").get(message)
       self.raise_errors(response.code)
       response
     end
@@ -39,7 +39,7 @@ module GitAnalysis
     # get the files for a specific PR
     def self.pr_files(owner, repo, number)
       message = "https://api.github.com/repos/#{owner}/#{repo}/pulls/#{number}/files"
-      response = HTTP.get(message)
+      response = HTTP.auth("token #{ENV['CHANGELOG_GITHUB_TOKEN']}").get(message)
       self.raise_errors(response.code)
       response
     end
