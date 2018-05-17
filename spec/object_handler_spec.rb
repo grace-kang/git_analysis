@@ -33,7 +33,7 @@ describe GitAnalysis::ObjectHandler do
   describe '#create_pr' do
     number = 2734
 
-    it 'returns a new GitAnalysis::Repository object' do
+    it 'returns a new GitAnalysis::PullRequest object' do
       VCR.use_cassette('pr_files') do
         VCR.use_cassette('pr') do
           object = handler.create_pr(number)

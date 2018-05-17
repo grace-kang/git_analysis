@@ -18,7 +18,7 @@ module GitAnalysis
 
     # print the number of open and closed pull requests
     def num_prs
-      "Open PRs:    #{open_pr_count}\nClosed PRs:  #{closed_pr_count}\n"
+      "Open PRs: #{open_pr_count}\nClosed PRs: #{closed_pr_count}\n"
     end
 
     # for each PR, print the size
